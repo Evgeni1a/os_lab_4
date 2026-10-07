@@ -1,0 +1,22 @@
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
+#include <sys/wait.h>
+
+int main() {
+	char cmd[100];
+	while (1) {
+		printf("> ");
+		if (!fgets(cmd, 100, stdin)) break;
+		cmd[strcspn(cmd, "\n")] = 0;
+		if (strcmp(cmd, "exit") == 0) break;
+
+		if (fork() == 0) {
+			execlp(cmd, cmd, NULL);
+			perror("exec");
+			_exit(1);
+		}
+	}
+	wait(NULL);
+	return 0;
+}
