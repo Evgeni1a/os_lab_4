@@ -16,6 +16,7 @@ int main(int argc, char* argv[]) {
 			printf("Child %d: PID=%d, PPID=%d\n", i, getpid(), getppid());
 		}
 		sleep(5);
+		
 	}
 
 	for (int i = 0; i < n; i++) wait(NULL);
